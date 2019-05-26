@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Skyscrapers {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         ArrayList<ArrayList<Integer>> cluesList = new ArrayList<>();
         cluesList.add(new ArrayList<>(Arrays.asList(0,2,3,0,2,0,0, 5,0,4,5,0,4,0, 0,4,2,0,0,0,6, 5,2,2,2,2,4,1)));
         cluesList.add(new ArrayList<>(Arrays.asList(7,0,0,0,2,2,3, 0,0,3,0,0,0,0, 3,0,3,0,0,5,0, 0,0,0,0,5,0,4)));

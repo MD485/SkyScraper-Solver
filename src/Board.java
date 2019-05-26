@@ -67,10 +67,25 @@ class Board {
     //more steps in this method, including a removePairs, removeSets and finally recursiveDescent
     //methods, I question whether my original implementation had some logical flaws.
     private void solve() {
-        while (!solveCheck()) {
+        while (unsolvedCheck()) {
             removeSingletons();
         }
-        System.out.println(boardString());
+    }
+
+    //A method for practical unit testing.
+    public int[][] results() {
+        if (unsolvedCheck()) {
+            return new int[0][0];
+        } else {
+            int[][] results = new int[boardSize][boardSize];
+            for (int j = 0; j < boardSize; j++) {
+                for (int i = 0; i < boardSize; i++) {
+                    results[j][i] = rows.get(j + boardSize)
+                            .getPossibilitiesAtIndex(i).iterator().next();
+                }
+            }
+            return results;
+        }
     }
 
     private void removeSingletons() {
@@ -89,15 +104,15 @@ class Board {
     }
 
     //If there is more than one possibility in any index in any row, this returns false.
-    private boolean solveCheck() {
+    private boolean unsolvedCheck() {
         for (Row r : rows) {
             for (int i = 0; i < boardSize; i++) {
                 if (r.getPossibilitiesAtIndex(i).size() != 1) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     String boardString() {
@@ -109,9 +124,9 @@ class Board {
                 HashSet<Character> possibilities =
                         rows.get(j + boardSize).getPossibilitiesAtIndex(i);
                 if (possibilities.size() != 1) {
-                    boardString.append("[" + possibilities.size() + "]");
+                    boardString.append("[").append(possibilities.size()).append("]");
                 } else {
-                    boardString.append(" " + possibilities.iterator().next() + " ");
+                    boardString.append(" ").append(possibilities.iterator().next()).append(" ");
                 }
                 boardString.append(",");
             }
